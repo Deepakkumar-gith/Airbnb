@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Embedded Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Map container */
+    #map {
+      height: 400px;     /* Default height for desktop */
+      width: 100%;       /* Full width of parent container */
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    /* For small screens (mobile) */
+    @media (max-width: 600px) {
+      #map {
+        height: 300px; /* Slightly smaller on mobile for better fit */
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h2>Responsive Map Inside Page</h2>
+<p>This is my page content above the map.</p>
+
+<!-- Map Section -->
+<div id="map"></div>
+
+<p>More content below the map...</p>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  // Create map with center on India
+  var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+  // Add OpenStreetMap layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Example markers
+  var locations = [
+    {name: "Delhi", coords: [28.6139, 77.2090]},
+    {name: "Mumbai", coords: [19.0760, 72.8777]},
+    {name: "Chennai", coords: [13.0827, 80.2707]}
+  ];
+
+  // Add markers with popups
+  locations.forEach(function(loc) {
+    L.marker(loc.coords)
+      .addTo(map)
+      .bindPopup(`<b>${loc.name}</b>`);
+  });
+</script>
+
+</body>
+</html>
